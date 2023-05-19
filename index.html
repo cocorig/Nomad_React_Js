@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <!-- clcik수 세기 -->
+    <span id = span >Total Click:0</span>
+    <!--1.html 버튼만들기 -->
+    <button id =btn >Click me!</button>
+</body>
+<script>//2.js로 button을 가져오기
+    let cnt = 0;
+    const button = document.getElementById('btn');
+    //2.js로 span 가져오기
+    const span = document.querySelector('span');
+    //4.click을 대응하는 function만들기
+    function handleClick(){//btn을 누르면 동작하는 함수
+        cnt =  cnt + 1
+        span.innerText = `Total Click:${cnt}`
+    }
+    //3.button을 click리스너주기 동작할수있게
+    button.raddEventListene('click',handleClick);
+</script>
+</html>
+
+<!-- 바닐라 js에서는 html을 먼저 만들고 그걸 js로 가져와서 html 수정-->

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<div id="root"></div>
+</body>
+<script src= "https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src= "https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<script type="text/babel">//babel에게 넘겨줌, 브라우저가 읽을 수 있는 코드로 바꿔서 head로 담음
+const root = document.getElementById('root');
+
+
+function App(){//()xx ->{} 리렌더링 해줘야함
+const [counter, setCounter] = React.useState(0);
+const onClick = () =>{
+    // setCounter(counter + 1)//어떤 값을 부여하던 setCounter함수는 그 값으로 업데이터를 하고 리렌더링을 일으킴
+    setCounter((current) => current + 1 );
+}//현재 state를 바탕으로 다음 state를 계산하고싶다면,
+//현재 state인 현재 counter값을 줄거고,예상치 못한 업데아트가 어디선가 일어났다해도 그게 혼동울 주는걸 방지
+//state를 세팅해주는 데에 2가지 방법
+//1.setCounter(counter + 1) 직접 값을 설정하는 방법
+//2.setCounter((current) => current + 1 );함수 전달하기 현재의 state로 다음 state값을 얻도록!
+console.log('rederd')
+//setCounter(1111); === counter = 1111; ReactDOM.render(<App/>,root);
+//
+return(//counter라는 data를 주고,counter값을 바꿀수있는 함수를 주고있음
+<div>           
+    <h3>
+        Total Click:{counter}
+    </h3>
+    <button onClick={onClick}>
+        Click me!
+    </button>
+</div>
+);
+}
+//어플리케이션이 처음 실행될때 호출->여기있는 코드에는 ul를 새로고침해주지않음->rerendering해줘야함
+ReactDOM.render(<App/>,root);
+</script>
+</html>
+<!-- //=()=>{ 에 function이랑 return문을 이미 포함하고있음 -->
+<!-- react.js는 ul에서 바뀐부분만 업데이트해줌! 이전에 렌더링된 컴포넌트는 어떤거였는지 확인하고있음
+다른 부분만 파악,바꾼 부분만 업데이트 ,
+데이터가 바뀔때마다 Contaniner를 리렌더링해줌 ,인터렉티비한걸 만들기 최적화 -->
+<!-- 리렌더링하면 컴포넌트도 바뀐 데이터를 가지고 재생성됨
+그래서 바뀐부분은 counter이기때문에 그 부분만 리렌더링이된다 -->
+
+<!-- React.useState함수는 counter 같은 데이터를 숫자형데이터로 건네줄거고
+setCounter함수를 이용해서 데이터를 바꿨을때 데이터 값이 바뀌고, 컴포넌트도 동시에 렌더링될거임->업데이트 -->

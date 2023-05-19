@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<div id="root"></div>
+</body>
+<script src= "https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src= "https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<script type="text/babel">//babel에게 넘겨줌, 브라우저가 읽을 수 있는 코드로 바꿔서 head로 담음
+const root = document.getElementById('root');
+
+function App(){
+const [minutes,setMinutes] = React.useState(0)
+const [flipped , setFlipped]=React.useState(false)
+
+const onChange=(e)=>{//사용자가 다른 값을 입력할 때마다 value를 업뎃시킴
+    setMinutes(e.target.value) //target은 방금바뀐 input을 말함
+}
+const reset = ()=>{ 
+    setMinutes(0)
+}                  //flipped가 true면 false를 반환
+const filp = ()=>{ //flipped가 false라면 true를 반환
+    setFlipped((flipped)=>!flipped)
+    
+}
+return( //html과 비슷하지만 jsx를 써야함 다른게있음  
+<div> 
+    <h1>Siper Converter</h1>
+    <div>    
+        <lable htmlFor='minutes'>Minutes</lable> 
+        <input disable={flipped === true} id="minutes" value={minutes} onChange={onChange} placeholder ='Minutes' type="number"/>
+        
+    </div> 
+    <div>
+        <lable htmlFor="hours">Hours</lable>
+        <input disable={flipped === false} id="hours" value={Math.round(minutes /60)}  placeholder ='Hours' type="number"/>
+    </div>   
+    <button onClick={reset}>Reset</button>
+    <button onClick={filp}>Filp</button>
+</div>
+);
+}
+ReactDOM.render(<App/>,root);
+</script>
+</html>
+<!-- // input의 value를 state로 연결해줌,어디서든 input의 value를 수정해줄 수 있음 -->
+<!-- state를 리스닝하거나, 연결한 모든 것들은 전부 0으로 돌려놈 -->
+<!-- {flipped === false} flipped가 false면 조건문결과는 true -->
+<!-- {flipped === false} flipped가 true 조건문결과는 false -->
