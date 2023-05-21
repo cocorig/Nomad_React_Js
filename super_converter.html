@@ -1,49 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <body>
-<div id="root"></div>
+    <div id="root"></div>
 </body>
-<script src= "https://unpkg.com/react@18/umd/react.development.js"></script>
-<script src= "https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
 <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 <script type="text/babel">//babel에게 넘겨줌, 브라우저가 읽을 수 있는 코드로 바꿔서 head로 담음
 const root = document.getElementById('root');
 
-function App(){
-const [minutes,setMinutes] = React.useState(0)
-const [flipped , setFlipped]=React.useState(false)
+function MinutesToHours(){
+const [amount,setAmount] = React.useState(0) //amount는 내가 쓴 값
+const [inverted , setInverted]= React.useState(false)
 
 const onChange=(e)=>{//사용자가 다른 값을 입력할 때마다 value를 업뎃시킴
-    setMinutes(e.target.value) //target은 방금바뀐 input을 말함
+    setAmount(e.target.value) //target은 방금바뀐 input을 말함
 }
 const reset = ()=>{ 
-    setMinutes(0)
-}                  //flipped가 true면 false를 반환
-const filp = ()=>{ //flipped가 false라면 true를 반환
-    setFlipped((flipped)=>!flipped)
-    
+    setAmount(0)
+}                  //amount가 true면 false를 반환//amount가 false라면 true를 반환
+const onVert = ()=>{ 
+    reset(); 
+    setInverted((inverted)=>!inverted) //현재 상태와 반대를 반환
 }
+console.log(inverted)
+
 return( //html과 비슷하지만 jsx를 써야함 다른게있음  
+
 <div> 
-    <h1>Siper Converter</h1>
     <div>    
-        <lable htmlFor='minutes'>Minutes</lable> 
-        <input disable={flipped === true} id="minutes" value={minutes} onChange={onChange} placeholder ='Minutes' type="number"/>
+        <lable htmlFor='minutes'>Minutes</lable>              
+        <input onChange={onChange} disabled={inverted} id="minutes" value={inverted ? amount * 60 : amount } placeholder ='Minutes' type="number"/>
         
     </div> 
     <div>
-        <lable htmlFor="hours">Hours</lable>
-        <input disable={flipped === false} id="hours" value={Math.round(minutes /60)}  placeholder ='Hours' type="number"/>
+        <lable htmlFor="hours">Hours</lable>                    
+        <input onChange={onChange} disabled={!inverted} id="hours" value={inverted ? amount : Math.round(amount /60) }  placeholder ='Hours' type="number"/>
     </div>   
     <button onClick={reset}>Reset</button>
-    <button onClick={filp}>Filp</button>
+    <button onClick={onVert}>{inverted ? "Turn back" : "Invert"}</button>
 </div>
 );
 }
+
+function KmToMiles(){
+    
+const [amount,setAmount] = React.useState(0) //amount는 내가 쓴 값
+const [inverted , setInverted]= React.useState(false)
+
+const onChange=(e)=>{//사용자가 다른 값을 입력할 때마다 value를 업뎃시킴
+    setAmount(e.target.value) //target은 방금바뀐 input을 말함
+}
+const reset = ()=>{ 
+    setAmount(0)
+}                  //amount가 true면 false를 반환//amount가 false라면 true를 반환
+const onVert = ()=>{ 
+    reset(); 
+    setInverted((inverted)=>!inverted) //현재 상태와 반대를 반환
+}
+console.log(inverted)
+
+return( //html과 비슷하지만 jsx를 써야함 다른게있음  
+
+<div> 
+    <div>    
+        <lable htmlFor='Miles'>Miles</lable>             
+        <input onChange={onChange} disabled={inverted} id="Miles" value={inverted ?Math.round(amount / 1.609): amount } placeholder ='Miles' type="number"/>
+        
+    </div> 
+    <div>
+        <lable htmlFor="KM">km </lable>                    
+        <input onChange={onChange} disabled={!inverted} id="KM" value={inverted ? amount : amount * 1.609}  placeholder ='Km' type="number"/>
+    </div>   
+    <button onClick={reset}>Reset</button>
+    <button onClick={onVert}>{inverted ? "Turn back" : "Invert"}</button>
+</div>
+);
+}
+
+function Largeur(){
+const [amount,setAmount] = React.useState(0) //amount는 내가 쓴 값
+const [inverted , setInverted]= React.useState(false)
+
+const onChange=(e)=>{//사용자가 다른 값을 입력할 때마다 value를 업뎃시킴
+    setAmount(e.target.value) //target은 방금바뀐 input을 말함
+}
+const reset = ()=>{ 
+    setAmount(0)
+}                  //amount가 true면 false를 반환//amount가 false라면 true를 반환
+const onVert = ()=>{ 
+    reset(); 
+    setInverted((inverted)=>!inverted) //현재 상태와 반대를 반환
+}
+console.log(inverted)
+
+return( //html과 비슷하지만 jsx를 써야함 다른게있음  
+
+<div> 
+    <div>    
+        <lable htmlFor='評'>Acreage</lable>             
+        <input onChange={onChange} disabled={inverted} id="Acreage" value={inverted ? (amount  / 3.3).toFixed(1) : amount } placeholder ='Acreage' type="number"/>
+        
+    </div> 
+    <div>
+        <lable htmlFor="m2">M2</lable>                    
+        <input onChange={onChange} disabled={!inverted} id="m2" value={inverted ? amount : amount * 3.3 }  placeholder ='m2' type="number"/>
+    </div>   
+    <button onClick={reset}>Reset</button>
+    <button onClick={onVert}>{inverted ? "Turn back" : "Invert"}</button>
+</div>
+);
+}
+
+function Lengthconversion(){
+const [amount,setAmount] = React.useState(0) //amount는 내가 쓴 값
+const [inverted , setInverted]= React.useState(false)
+
+const onChange=(e)=>{//사용자가 다른 값을 입력할 때마다 value를 업뎃시킴
+    setAmount(e.target.value) //target은 방금바뀐 input을 말함
+}
+const reset = ()=>{ 
+    setAmount(0)
+}                  //amount가 true면 false를 반환//amount가 false라면 true를 반환
+const onVert = ()=>{ 
+    reset(); 
+    setInverted((inverted)=>!inverted) //현재 상태와 반대를 반환
+}
+console.log(inverted)
+
+return( //html과 비슷하지만 jsx를 써야함 다른게있음  
+
+<div> 
+    <div>    
+        <lable htmlFor='cm'>cm</lable>             
+        <input onChange={onChange} disabled={inverted} id="cm" value={inverted ? (amount * 2.54) : amount } placeholder ='cm' type="number"/>
+        
+    </div> 
+    <div>
+        <lable htmlFor="inch">inch</lable>                    
+        <input onChange={onChange} disabled={!inverted} id="inch" value={inverted ? amount : (amount  / 2.54).toFixed(1) }  placeholder ='inch' type="number"/>
+    </div>   
+    <button onClick={reset}>Reset</button>
+    <button onClick={onVert}>{inverted ? "Turn back" : "Invert"}</button>
+</div>
+);
+}
+function App(){
+
+    const [index , setIndex]= React.useState('xx')
+    const onSelect =  (e)=>{
+        setIndex(e.target.value)//사용자가 옵션을 선택하면 setIndex을 통해 index로 들어감
+    }//만약 데이터를 수정하기 위해 modifier함수를 사용하게된다면 컴포넌트는 새로운 데이터와 함께 업데이트
+    console.log(index)
+return( 
+<div> 
+    <h1>Super Converter</h1>
+    <select value={index} onChange = {onSelect}>//select의 change event를 리스닝 해줌
+        <option value="0">Minutes & Hours</option>   
+        <option value="1">Km & Miles</option>  
+        <option value="2">평수 & M2</option>
+        <option value="3">cm & inch</option>
+        <option value='xx'>Select your units</option>
+    </select>
+    <hr/>
+    {index === 'xx' ? 'Please select your units' : null}
+    {index === '0' ? <MinutesToHours/> : null}
+    {index === '1' ? <KmToMiles/> : null}
+    {index === '2' ? <Largeur/> : null}
+    {index === '3' ? <Lengthconversion/> :  null}
+</div>
+// {js문법을 쓸수있음} index가 0이면 minutes컴포넌트를 보여줄꺼고 index가 1이면 km컴포넌트를 보여줌 
+//input이 있고, 그 안의 값이 바뀌는것,변화가 일어나고 state를 업데이트 그럼 컴포넌트가 보이는 것처럼 변함
+);//state가 변하면 모든게 새로고핌!!
+}
 ReactDOM.render(<App/>,root);
 </script>
+
 </html>
-<!-- // input의 value를 state로 연결해줌,어디서든 input의 value를 수정해줄 수 있음 -->
-<!-- state를 리스닝하거나, 연결한 모든 것들은 전부 0으로 돌려놈 -->
-<!-- {flipped === false} flipped가 false면 조건문결과는 true -->
-<!-- {flipped === false} flipped가 true 조건문결과는 false -->
