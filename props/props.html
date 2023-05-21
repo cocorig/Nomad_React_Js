@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <div id="root"></div>
+
+</body>
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+<script type="text/babel">//babel에게 넘겨줌, 브라우저가 읽을 수 있는 코드로 바꿔서 head로 담음
+
+const root = document.getElementById('root');
+
+function Btn({text,changeValue,fontSize = 16}){ //만약 fontsize가 정의되있지 않는다면 16으로! js문법 정의되지않는 변수에 관한 기본값 
+    console.log(text, "was rendered")
+    return(
+        <button onClick={changeValue} style={{
+            backgroundColor: 'tomato',
+            color: 'white',
+            padding: '10px 20px',
+            border: 0,
+            borderRadius: 10,
+            fontSize
+        }}>{text}</button>
+    )
+}
+//onClick funtion은 내 App컴포넌트에 있는 뭔가의 state를 바꾸게 될꺼야
+
+// const MemorizedBtn = React.memo(Btn);//부모 컴포넌트가 전체렌더링을 할때 자식들도 다 렌더링되는데 나는 변경될 props가 없으니까 제외하고 해! 그래야 어플리케이션이 느려지지않아!
+
+Btn.propTypes = { //props의 타입은 뭐고 어떤 모양이어야 하는지 설명해줄수있음
+    text:PropTypes.string.isRequired,//필수조건
+    FontSize: PropTypes.number, //옵션
+}
+
+function App(){//부모 컴포넌트는 state변경을 격음,상태가 변경될때마다 모든게 업데이트-> 자식컴포넌트도 실행됨
+    const[value, setValue] = React.useState('Save Change');
+    const onChangeValue = ()=>{
+        setValue('Revert Changes');
+    }
+
+return ( //내 커스텀 컴포넌트에 넣는 onClick(props)는 이벤트리스너가 아님!!->hmtl태그안에 쓰는거는 정해진 이벤트리스너임!,React가 절대 이벤트리스너를 추가시키는게 아님!! 착각노노 props로 날랴서 hmtl태그에서 적용해야 동작함!!
+    <div>
+        <Btn text={value} changeValue={onChangeValue} fontSize ={18}/> 
+    
+    </div> //강조!!:뭐든 여기에 prop로 넣는다고하면,절대 자동적으로 return안에 들어가지않는다!->props로 전달해서 써야함
+//우리는 <Btn text="Continue"/> 이 props는 값이 바뀌지않는다-> 컴포넌트를 굳이 렌더링 할 필요가 없음 React.Memo()
+// <Btn text={value}/>이건 state가 변경된다면 똑같이 변경해줘야 하지만
+);
+}
+//PropType은 네가 어떤 타입의 prop을 받고 있는지 체크해줌!!
+ReactDOM.render(<App/>,root);
+
+
+</script>
+</html>
