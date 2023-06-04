@@ -1,0 +1,8 @@
+.btn {
+    color: white;
+    background-color: tomato;
+}
+/* //create-react-app은 이 css코드를 js 오브젝트로 변환시켜준다 */
+/* css파일이 적용하려는 파일의 모든 부분에 improt되는 걸 원하지 않음!! */
+/* create-react-app의 포인트는 분할하고 , 정복하는 것!! */
+/* css.module ->나의 style이 modular가 될 수 있다! */
