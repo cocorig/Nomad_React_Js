@@ -5,7 +5,7 @@ export default function Detail() {
   const {id} = useParams();
   const today = [];
   const todayTodo = useSelector(state => (state));
-console.log(todayTodo);
+
   for(let i = 0; i < todayTodo.length; i++){
       if(Number(id) === (todayTodo[i].id)){
         today.push(todayTodo[i].text )
